@@ -33,8 +33,7 @@ module.exports = {
         extensions: [".tsx", ".ts", ".js"],
     },
     devServer: {
-        port: 3000,
-        // contentBase: ['./src', './public'],
+        port: 3000, 
         open: true,
         hot: true,
     },
