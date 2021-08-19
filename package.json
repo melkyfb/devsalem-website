@@ -25,10 +25,14 @@
     "webpack": "webpack",
     "start": "webpack serve",
     "build": "webpack --mode production",
-    "upload": "aws s3 sync ./build s3://beta.devsalem.com.br/",
-    "upload-master": "aws s3 sync ./build s3://devsalem.com.br/",
+    "serve-build": "serve -s build",
+    "clear-s3": "aws s3 rm s3://beta.devsalem.com.br/ --recursive",
+    "upload": "yarn clear-s3 && aws s3 sync ./build s3://beta.devsalem.com.br/",
+    "clear-s3-master": "aws s3 rm s3://devsalem.com.br/ --recursive",
+    "upload-master": "yarn clear-s3-master && aws s3 sync ./build s3://devsalem.com.br/",
     "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "update-browser": "npx browserslist@latest --update-db"
   },
   "eslintConfig": {
     "extends": [
@@ -50,10 +54,12 @@
   },
   "devDependencies": {
     "@babel/preset-typescript": "^7.15.0",
+    "@svgr/core": "^5.5.0",
     "babel-core": "^6.26.3",
     "babel-loader": "^8.2.2",
     "babel-preset-env": "^1.7.0",
     "babel-preset-react": "^6.24.1",
+    "compression-webpack-plugin": "^8.0.1",
     "css-loader": "^6.2.0",
     "file-loader": "^6.2.0",
     "html-loader": "^2.1.2",
@@ -66,6 +72,7 @@
     "ts-loader": "^9.2.5",
     "webpack": "^5.50.0",
     "webpack-cli": "^4.8.0",
-    "webpack-dev-server": "^4.0.0-rc.0"
+    "webpack-dev-server": "^4.0.0-rc.0",
+    "webpack-s3-plugin": "^1.2.0-rc.0"
   }
 }

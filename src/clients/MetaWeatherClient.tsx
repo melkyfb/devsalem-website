@@ -1,14 +1,4 @@
-type SourceType = {
-    title: string,
-    url: string
-}
-
-type ParentType = {
-    title: string,
-    location_type: string,
-    latt_long: [number, number],
-    woeid: number
-}
+import {MetaWeatherReturnType} from '../types/MetaWeatherReturnType';
 
 type LocationSearchResponseType = {    
     title: string,
@@ -16,37 +6,6 @@ type LocationSearchResponseType = {
     latt_long: [number, number],
     woeid: number,
     distance: number
-}
-
-type ConsolidatedWeatherType = {
-    id: number,
-    applicable_date: Date,
-    weather_state_name: string,
-    weather_state_abbr: string,
-    wind_speed: number,
-    wind_direction: number,
-    wind_direction_compass: string,
-    min_temp: number,
-    max_temp: number,
-    the_temp: number,
-    air_pressure: number,
-    humidity: number,
-    visibility: number,
-    predictability: number
-}
-
-type MetaWeatherReturnType = {
-    title: string,
-    location_type: string,
-    latt_long: [number, number],
-    time: Date,
-    sun_rise: Date,
-    sun_set: Date,
-    timezone_name: string,
-    woeid: number,
-    consolidated_weather: ConsolidatedWeatherType[],
-    parent: ParentType,
-    sources: SourceType[]
 }
 
 type WeatherPropsType = {
@@ -66,7 +25,7 @@ export default class MetaWeatherClient {
     
         let url = locationQuery
             ? `${this.MetaWeatherAPIURLLocationSearch}?query=${locationQuery}`
-            : `${this.MetaWeatherAPIURLLocationSearch}?lattlong=${geoLocation.join(',')}`;            
+            : `${this.MetaWeatherAPIURLLocationSearch}?lattlong=${geoLocation?.join(',')}`;
 
         return url;
     }

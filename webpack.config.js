@@ -1,9 +1,33 @@
 const path = require("path");
 const HtmlWebpackPlugin = require("html-webpack-plugin");
+const CompressionPlugin = require("compression-webpack-plugin");
+const S3Plugin = require('webpack-s3-plugin');
 
 module.exports = {
     entry: "./src/index.tsx",
-    output: { path: path.join(__dirname, "build"), filename: "index.bundle.js" },
+    output: {
+        path: path.join(__dirname, "build"),
+        filename: '[name].[contenthash].js',
+        // filename: "index.bundle.js"
+        clean: true
+    },
+    cache: {
+        type: 'filesystem',
+        maxAge: 5184000000
+    },
+    optimization: {
+        moduleIds: 'deterministic',
+        runtimeChunk: 'single',
+        splitChunks: {
+            cacheGroups: {
+                vendor: {
+                    test: /[\\/]node_modules[\\/]/,
+                    name: 'vendors',
+                    chunks: 'all',
+                },
+            },
+          },
+    },
     mode: process.env.NODE_ENV || "development",
     resolve: {
         extensions: [".tsx", ".ts", ".js"],
@@ -33,14 +57,23 @@ module.exports = {
             },
             {
                 test: /\.(jpg|jpeg|png|gif|mp3|svg)$/,
-                use: ["optimized-images-loader"],
+                use: [
+                    {
+                        loader: 'optimized-images-loader',
+                        options: {
+                            includeStrategy: 'react'
+                        },
+                    },
+                ],
             },
         ],
     },
     plugins: [
         new HtmlWebpackPlugin({
+            title: 'Caching',
             template: path.join(__dirname, "public", "index.html"),
             hash: true, 
         }),
+        new CompressionPlugin(),
     ],
 };

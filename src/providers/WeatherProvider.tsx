@@ -9,7 +9,7 @@ type WeatherProviderReturnType = {
     weather: Array<WeatherDayType>
 };
 
-const WeatherProvider = (locationQuery?: string, geoLocation?: [number, number]): WeatherProviderReturnType => {
+const WeatherProvider = (locationQuery?: string, geoLocation?: [number, number]): any => {
     if (!locationQuery && !geoLocation) {
         throw new Error('This function should be called containing at least one parameter.');
     }
