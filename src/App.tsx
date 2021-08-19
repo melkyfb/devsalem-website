@@ -1,26 +1,48 @@
+import { hot } from "react-hot-loader";
 import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import './App.scss';
 
-function App() {
+
+import {
+  BrowserRouter as Router,
+  Switch,
+  Route,
+} from "react-router-dom";
+
+import HeaderMenu from './components/HeaderMenu';
+import Footer from './components/Footer';
+
+import Home from './pages/Home';
+import Resume from './pages/Resume';
+import Blog from './pages/Blog';
+
+interface PropType {
+  page?: number,
+};
+
+const App = ({ page = 0 }: PropType) => {
+
+  React.useEffect(() => {
+
+  });
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <Router>
+      <HeaderMenu />
+      <Switch>
+        <Route path='/resume'>
+          <Resume />
+        </Route>
+        <Route path='/blog'>
+          <Blog />
+        </Route>
+        <Route path='/'>
+          <Home />
+        </Route>
+      </Switch>
+      <Footer />
+    </Router>
   );
-}
+};
 
-export default App;
+export default hot(module)(App);
