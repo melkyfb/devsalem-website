@@ -54,7 +54,7 @@ type WeatherPropsType = {
     geoLocation?: [number, number]
 }
 
-export default class MetaWeatherRequester {   
+export default class MetaWeatherClient {   
     MetaWeatherAPIURL = 'https://www.metaweather.com/api/';
     MetaWeatherAPIURLLocation = `${this.MetaWeatherAPIURL}location/`;
     MetaWeatherAPIURLLocationSearch = `${this.MetaWeatherAPIURLLocation}search/`; 
