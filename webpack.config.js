@@ -57,15 +57,7 @@ module.exports = {
             },
             {
                 test: /\.(png|jpe?g|webp|tiff?)$/i,
-                use: [
-                    "file-loader",
-                    {
-                        loader: 'webpack-image-resize-loader',
-                        options: {
-                            width: 1000
-                        },
-                    },
-                ],
+                use: ['optimized-images-loader'],
             },
         ],
     }, 

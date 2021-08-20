@@ -63,6 +63,7 @@
     "file-loader": "^6.2.0",
     "html-loader": "^2.1.2",
     "html-webpack-plugin": "^5.3.2",
+    "optimized-images-loader": "^0.4.0",
     "react-hot-loader": "^4.13.0",
     "sass": "^1.38.0",
     "sass-loader": "^12.1.0",
@@ -71,7 +72,6 @@
     "webpack": "^5.50.0",
     "webpack-cli": "^4.8.0",
     "webpack-dev-server": "^4.0.0-rc.0",
-    "webpack-image-resize-loader": "^4.1.0",
     "webpack-manifest-plugin": "^4.0.2",
     "webpack-s3-plugin": "^1.2.0-rc.0"
   }
