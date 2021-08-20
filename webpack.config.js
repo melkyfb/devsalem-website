@@ -1,14 +1,14 @@
 const path = require("path");
 const HtmlWebpackPlugin = require("html-webpack-plugin");
 const CompressionPlugin = require("compression-webpack-plugin");
-const S3Plugin = require('webpack-s3-plugin');
+const { WebpackManifestPlugin } = require('webpack-manifest-plugin');
 
 module.exports = {
     entry: "./src/index.tsx",
     output: {
         path: path.join(__dirname, "build"),
         filename: '[name].[contenthash].js',
-        // filename: "index.bundle.js"
+        publicPath: "",
         clean: true
     },
     cache: {
@@ -67,13 +67,15 @@ module.exports = {
                 ],
             },
         ],
-    },
+    }, 
     plugins: [
         new HtmlWebpackPlugin({
             title: 'Caching',
             template: path.join(__dirname, "public", "index.html"),
             hash: true, 
+            favicon: path.join(__dirname, "public", "favicon.ico"),
         }),
         new CompressionPlugin(),
+        new WebpackManifestPlugin(),
     ],
 };

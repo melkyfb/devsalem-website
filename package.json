@@ -73,6 +73,7 @@
     "webpack-cli": "^4.8.0",
     "webpack-dev-server": "^4.0.0-rc.0",
     "webpack-image-resize-loader": "^4.1.0",
+    "webpack-manifest-plugin": "^4.0.2",
     "webpack-s3-plugin": "^1.2.0-rc.0"
   }
 }
