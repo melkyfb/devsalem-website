@@ -4,11 +4,23 @@ import Navbar from 'react-bootstrap/Navbar';
 
 import './index.scss';
 
+// @ts-ignore
+import ReactImg from '/src/images/reactjs.png?width=32';
+// @ts-ignore
+import BabelImg from '/src/images/babel.png?width=32';
+// @ts-ignore
+import WebpackImg from '/src/images/webpack.png?width=32';
+// @ts-ignore
+import TypescriptImg from '/src/images/typescript.png?width=32';
+// @ts-ignore
+import bootstrapImg from '/src/images/bootstrap.png?width=32';
+// @ts-ignore
+
 interface ImgLinkProps {
     src: string,
     title: string,
     href?: string,
-    target?: string
+    target?: string,
 };
 
 const ImgLink = ({ src, title, href, target = '_blank' }: ImgLinkProps) => {
@@ -31,11 +43,11 @@ const Footer = () => {
             <Container>
                 <Navbar.Brand>
                     Built with
-                    <ImgLink src={require('../../images/reactjs.png?width=32')} title='ReactJS' href='https://reactjs.org/'/>{' '}
-                    <ImgLink src={require('../../images/babel.png?width=32')} title='Babel' href='https://babeljs.io/'/>{' '}
-                    <ImgLink src={require('../../images/webpack.png?width=32')} title='Webpack' href='https://webpack.js.org/'/>{' '}
-                    <ImgLink src={require('../../images/typescript.png?width=32')} title='Typescript' href='https://www.typescriptlang.org/'/>{' '}
-                    <ImgLink src={require('../../images/bootstrap.png?width=32')} title='Bootstrap' href='https://getbootstrap.com/'/>{' '}
+                    <ImgLink src={ReactImg} title='ReactJS' href='https://reactjs.org/'/>{' '}
+                    <ImgLink src={BabelImg} title='Babel' href='https://babeljs.io/'/>{' '}
+                    <ImgLink src={WebpackImg} title='Webpack' href='https://webpack.js.org/'/>{' '}
+                    <ImgLink src={TypescriptImg} title='Typescript' href='https://www.typescriptlang.org/'/>{' '}
+                    <ImgLink src={bootstrapImg} title='Bootstrap' href='https://getbootstrap.com/'/>{' '}
                 </Navbar.Brand>
                 <Navbar.Text>
                     Developed by <a href="https://twitter.com/dev_salem" target='_blank'>Dev Salem®</a>

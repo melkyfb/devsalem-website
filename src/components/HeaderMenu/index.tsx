@@ -4,6 +4,8 @@ import Navbar from 'react-bootstrap/Navbar';
 import Nav from 'react-bootstrap/Nav';
 import Container from 'react-bootstrap/Container';
 
+// @ts-ignore
+import LogoImg from '/src/images/logo.png?width=32';
 
 import { NavLink } from "react-router-dom";
 
@@ -12,7 +14,7 @@ const HeaderMenu = () => {
     <Navbar collapseOnSelect expand="lg" bg="dark" variant="dark">
       <Container>
         <Navbar.Brand>
-          <img src={require('../../images/logo.png?width=32')} />{' '}
+          <img src={LogoImg} />{' '}
           Dev Salem
         </Navbar.Brand>
         <Navbar.Toggle aria-controls="responsive-navbar-nav" />

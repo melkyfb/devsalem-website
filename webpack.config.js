@@ -55,12 +55,13 @@ module.exports = {
                 use: ["style-loader", "css-loader", "sass-loader"],
             },
             {
-                test: /\.(jpg|jpeg|png|gif|mp3|svg)$/,
+                test: /\.(png|jpe?g|webp|tiff?)$/i,
                 use: [
+                    "file-loader",
                     {
-                        loader: 'optimized-images-loader',
+                        loader: 'webpack-image-resize-loader',
                         options: {
-                            includeStrategy: 'react'
+                            width: 1000
                         },
                     },
                 ],
