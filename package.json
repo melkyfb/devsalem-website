@@ -28,7 +28,6 @@
     "clear-s3": "aws s3 rm s3://beta.devsalem.com.br/ --recursive",
     "build": "NODE_ENV=production BUCKET=beta.devsalem.com.br webpack --mode production",
     "build-main": "NODE_ENV=production BUCKET=devsalem.com.br webpack --mode production",
-    "serve-build": "serve -s build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
     "update-browser": "npx browserslist@latest --update-db"
