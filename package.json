@@ -27,9 +27,9 @@
     "build": "webpack --mode production",
     "serve-build": "serve -s build",
     "clear-s3": "aws s3 rm s3://beta.devsalem.com.br/ --recursive",
-    "upload": "yarn clear-s3 && aws s3 sync ./build s3://beta.devsalem.com.br/",
+    "upload": "yarn clear-s3 && aws s3 sync ./build s3://beta.devsalem.com.br/ --cache-control max-age=2592000,public",
     "clear-s3-master": "aws s3 rm s3://devsalem.com.br/ --recursive",
-    "upload-master": "yarn clear-s3-master && aws s3 sync ./build s3://devsalem.com.br/",
+    "upload-master": "yarn clear-s3-master && aws s3 sync ./build s3://devsalem.com.br/ --cache-control max-age=2592000,public",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
     "update-browser": "npx browserslist@latest --update-db"
