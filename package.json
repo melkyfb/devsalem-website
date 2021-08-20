@@ -18,18 +18,17 @@
     "react-dom": "^17.0.2",
     "react-router-dom": "^5.2.0",
     "react-scripts": "4.0.3",
+    "sharp": "^0.29.0",
     "typescript": "^4.1.2",
     "web-vitals": "^1.0.1"
   },
   "scripts": {
     "webpack": "webpack",
     "start": "webpack serve",
-    "build": "webpack --mode production",
-    "serve-build": "serve -s build",
     "clear-s3": "aws s3 rm s3://beta.devsalem.com.br/ --recursive",
-    "upload": "yarn clear-s3 && aws s3 sync ./build s3://beta.devsalem.com.br/ --cache-control max-age=2592000,public",
-    "clear-s3-master": "aws s3 rm s3://devsalem.com.br/ --recursive",
-    "upload-master": "yarn clear-s3-master && aws s3 sync ./build s3://devsalem.com.br/ --cache-control max-age=2592000,public",
+    "build": "NODE_ENV=production BUCKET=beta.devsalem.com.br webpack --mode production",
+    "build-main": "NODE_ENV=production BUCKET=devsalem.com.br webpack --mode production",
+    "serve-build": "serve -s build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
     "update-browser": "npx browserslist@latest --update-db"

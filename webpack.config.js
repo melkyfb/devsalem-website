@@ -2,6 +2,7 @@ const path = require("path");
 const HtmlWebpackPlugin = require("html-webpack-plugin");
 const CompressionPlugin = require("compression-webpack-plugin");
 const { WebpackManifestPlugin } = require('webpack-manifest-plugin');
+const S3Plugin = require('webpack-s3-plugin');
 
 module.exports = {
     entry: "./src/index.tsx",
@@ -75,7 +76,45 @@ module.exports = {
             hash: true, 
             favicon: path.join(__dirname, "public", "favicon.ico"),
         }),
-        new CompressionPlugin(),
-        new WebpackManifestPlugin(),
     ],
 };
+
+if (process.env.NODE_ENV === 'production') {
+    module.exports.plugins.push(
+        new CompressionPlugin({
+            test: /\.(js|css)$/i,
+            filename: '[name][ext]',
+            algorithm: 'gzip',
+            deleteOriginalAssets: true
+        }),
+        new WebpackManifestPlugin(),
+        new S3Plugin({
+            s3Options: {
+              accessKeyId: process.env.AWS_ACCESS_KEY_ID,
+              secretAccessKey: process.env.AWS_SECRET_ACCESS_KEY,
+              region: 'sa-east-1',
+              cleanAfterDeployment: true
+            },
+            s3UploadOptions: {
+              Bucket: process.env.BUCKET,
+              ContentEncoding(fileName) {
+                if(/\.(js|css)$/i.test(fileName)) {
+                  return 'gzip'
+                }
+              },
+              ContentType(fileName) {
+                if(/\.css/.test(fileName)) {
+                  return 'text/css'
+                }
+                if(/\.js/.test(fileName)) {
+                  return 'text/javascript'
+                }
+              },
+              CacheControl(fileName) {
+                  return 'max-age=2592000,public'
+              }
+            },
+            directory: 'build'
+        })
+    );
+}
