@@ -3,6 +3,7 @@ const HtmlWebpackPlugin = require("html-webpack-plugin");
 const CompressionPlugin = require("compression-webpack-plugin");
 const { WebpackManifestPlugin } = require('webpack-manifest-plugin');
 const S3Plugin = require('webpack-s3-plugin');
+const CopyPlugin = require('copy-webpack-plugin');
 
 module.exports = {
     entry: "./src/index.tsx",
@@ -101,12 +102,20 @@ if (process.env.NODE_ENV === 'production') {
                 if(/\.js/.test(fileName)) {
                   return 'text/javascript'
                 }
+                if(/\.ico/.test(fileName)) {
+                  return 'image/vnd.microsoft.icon'
+                }
               },
               CacheControl(fileName) {
                   return 'max-age=2592000,public'
               }
             },
             directory: 'build'
+        }),
+        new CopyPlugin({
+            patterns: [
+                { from: 'public/robots.txt', to: 'robots.txt' }
+            ]
         })
     );
 }
