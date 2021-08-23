@@ -39,7 +39,7 @@ module.exports = {
         open: true,
         hot: true,
     },
-    devtool: "source-map",
+    devtool: "inline-source-map",
     module: {
         rules: [
             {

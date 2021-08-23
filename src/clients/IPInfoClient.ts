@@ -13,6 +13,6 @@ const getIPInfo = async (): Promise<IPInfoResponseType> => {
     return await fetch('https://geolocation-db.com/json/').then(r => r.json());
 };
 
-export {
+export default {
     getIPInfo,
 };

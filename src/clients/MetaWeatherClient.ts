@@ -13,38 +13,42 @@ type WeatherPropsType = {
     geoLocation?: [number, number]
 }
 
-export default class MetaWeatherClient {   
-    MetaWeatherAPIURL = 'https://www.metaweather.com/api/';
-    MetaWeatherAPIURLLocation = `${this.MetaWeatherAPIURL}location/`;
-    MetaWeatherAPIURLLocationSearch = `${this.MetaWeatherAPIURLLocation}search/`; 
+const MetaWeatherAPIURL = 'https://metaweather-with-cors.vercel.app/api/';
+const MetaWeatherAPIURLLocation = `${MetaWeatherAPIURL}location/`;
+const MetaWeatherAPIURLLocationSearch = `${MetaWeatherAPIURLLocation}search/`; 
 
-    getSearchUrl = (locationQuery?: string, geoLocation?: [number, number]): string => {
-        if (!locationQuery && !geoLocation) {
-            throw new Error('This function should be called containing at least one parameter.');
-        }
-    
-        let url = locationQuery
-            ? `${this.MetaWeatherAPIURLLocationSearch}?query=${locationQuery}`
-            : `${this.MetaWeatherAPIURLLocationSearch}?lattlong=${geoLocation?.join(',')}`;
-
-        return url;
+const getSearchUrl = (locationQuery?: string, geoLocation?: [number, number]): string => {
+    if (!locationQuery && !geoLocation) {
+        throw new Error('This function should be called containing at least one parameter.');
     }
 
-    getNearestWOEID = async (url: string): Promise<number> => {
-        const response: LocationSearchResponseType[] = await fetch(url).then(r => r.json());
-        return response.length > 0 ? response[0].woeid : -1;
-    }
+    let url = locationQuery
+        ? `${MetaWeatherAPIURLLocationSearch}?query=${locationQuery}`
+        : `${MetaWeatherAPIURLLocationSearch}?lattlong=${geoLocation?.join(',')}`;
 
-    getWeatherForWOEID = async (woeid: number): Promise<MetaWeatherReturnType> => {
-        const url = `${this.MetaWeatherAPIURLLocation}${woeid}`;
-        return await fetch(url).then(r => r.json());
-    }
+    return url;
+}
 
-    getWeatherFor = ({locationQuery, geoLocation}: WeatherPropsType): Promise<MetaWeatherReturnType> => {
-        if (!locationQuery && !geoLocation) {
-            throw new Error('This function should be called containing at least one parameter.');
-        }
-        const searchUrl = this.getSearchUrl(locationQuery, geoLocation);
-        return this.getNearestWOEID(searchUrl).then(nearestWOEID => this.getWeatherForWOEID(nearestWOEID));
+const getNearestWOEID = async (url: string): Promise<number> => {
+    const response: LocationSearchResponseType[] = await fetch(url).then(r => r.json());
+    return response.length > 0 ? response[0].woeid : -1;
+}
+
+const getWeatherForWOEID = async (woeid: number): Promise<MetaWeatherReturnType> => {
+    const url = `${MetaWeatherAPIURLLocation}${woeid}`;
+    const resp = await fetch(url);
+    return resp.json();
+}
+
+const getWeatherFor = async ({locationQuery, geoLocation}: WeatherPropsType): Promise<any> => {
+    if (!locationQuery && !geoLocation) {
+        throw new Error('This function should be called containing at least one parameter.');
     }
+    const searchUrl = getSearchUrl(locationQuery, geoLocation);
+    const weather = await getNearestWOEID(searchUrl).then(woeid => getWeatherForWOEID(woeid));
+    return weather;
+}
+
+export default {
+    getWeatherFor,
 }
